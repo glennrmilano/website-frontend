@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+.message {
+  @apply rounded-lg p-4 mb-3 max-w-2xl;
+}
+
+.message.user {
+  @apply bg-blue-600 ml-auto;
+}
+
+.message.assistant {
+  @apply bg-slate-700;
+}
+
+.artifact {
+  @apply bg-slate-800 rounded-lg p-4 my-4 border border-slate-700;
+}
+
+.artifact.chart {
+  @apply p-6;
+}
+
+.tool-execution {
+  @apply flex items-center gap-2 p-3 bg-slate-700 rounded text-sm text-amber-400;
+}
+
+/* Animation delays for bounce sequences */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
