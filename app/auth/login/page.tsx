@@ -23,47 +23,27 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      // Validate API key by making a test request
-      const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/sessions`;
-      console.log('Attempting to connect to:', apiUrl);
-      console.log('API URL env var:', process.env.NEXT_PUBLIC_API_URL);
+      // Demo mode: Accept any API key for now
+      // TODO: Re-enable backend validation when backend is deployed
+      console.log('Demo mode: Bypassing backend authentication');
 
-      const response = await fetch(
-        apiUrl,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({}),
-        }
-      );
-
-      console.log('Response status:', response.status);
-      console.log('Response ok:', response.ok);
-
-      if (!response.ok) {
-        const responseText = await response.text();
-        console.error('Error response body:', responseText);
-
-        if (response.status === 401) {
-          setError('Invalid API key');
-        } else {
-          setError(`Failed to authenticate (${response.status})`);
-        }
+      // Simple validation: just check if key is not empty
+      if (apiKey.length < 5) {
+        setError('API key must be at least 5 characters');
+        setIsLoading(false);
         return;
       }
 
-      const data = await response.json();
-      console.log('Login response:', data);
-
-      // Success! Store the API key
+      // Store the API key
       setAuthKey(apiKey);
+
+      // Small delay to simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+
       router.push('/dashboard');
     } catch (err) {
       console.error('Login error:', err);
-      setError(`Connection error: ${err instanceof Error ? err.message : String(err)}`);
+      setError(`Error: ${err instanceof Error ? err.message : String(err)}`);
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +78,7 @@ export default function LoginPage() {
                 disabled={isLoading}
               />
               <p className="text-xs text-slate-400 mt-2">
-                Get your API key from the settings page
+                Demo mode: Enter any key (min 5 characters)
               </p>
             </div>
 
@@ -122,7 +102,7 @@ export default function LoginPage() {
           {/* Footer Info */}
           <div className="mt-6 p-4 bg-blue-900/20 border border-blue-700 rounded-lg">
             <p className="text-xs text-blue-300">
-              <strong>Demo:</strong> Use an API key from your organization to access the dashboard.
+              <strong>Demo Mode:</strong> Backend authentication is disabled. Enter any API key (min 5 characters) to access the dashboard.
             </p>
           </div>
         </div>
