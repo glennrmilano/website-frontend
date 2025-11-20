@@ -137,7 +137,6 @@ export const useStreaming = (options: UseStreamingOptions = {}) => {
               name: event.tool_name,
               status: 'running',
               input: event.input || {},
-              output: undefined,
             },
           ],
         });
@@ -164,7 +163,7 @@ export const useStreaming = (options: UseStreamingOptions = {}) => {
           id: event.artifact_id,
           kind: event.kind as any,
           title: event.title,
-          content: event.content,
+          content: event.content || '',
         });
         options.onArtifactCreated?.(event.artifact_id);
         break;

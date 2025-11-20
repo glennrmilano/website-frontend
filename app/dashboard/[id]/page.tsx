@@ -75,6 +75,7 @@ export default function ChatPage() {
           role: 'user',
           content: text,
           tokensUsed: 0,
+          createdAt: new Date().toISOString(),
         };
 
         // Add user message to store
@@ -86,12 +87,13 @@ export default function ChatPage() {
 
         if (response.stream_id) {
           // Create assistant message placeholder
-          const assistantMessageId = response.message_id || `msg-${Date.now()}-assistant`;
+          const assistantMessageId = `msg-${Date.now()}-assistant`;
           const assistantMessage: Message = {
             id: assistantMessageId,
             role: 'assistant',
             content: '',
-            tokensUsed: response.tokens_used || 0,
+            tokensUsed: 0,
+            createdAt: new Date().toISOString(),
           };
 
           addMessage(assistantMessage);

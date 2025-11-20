@@ -19,6 +19,7 @@ export interface Message {
 }
 
 export interface ToolCall {
+  id: string;
   name: string;
   input: Record<string, any>;
   status: 'running' | 'completed' | 'error';
